@@ -103,3 +103,50 @@ Aquí se incluirán las utilidades (funciones helpers / tareas repetitivas).
 Aquí se incluirán los ficheros de almacenamiento (por ejemplo, ficheros de música .mp3).
 
 `mkdir storage`
+
+---
+
+## Base de datos
+
+### Instalar Mongoose
+  
+Se instala la dependencia de Mongoose, para gestionar la base de datos.
+
+`npm i mongoose`
+
+### Crear conexión a la base de datos
+
+Se crea el fichero config/mongo.js, aplicando las configuraciones necesarias.
+
+```javascript
+const mongoose = require("mongoose");
+
+const dbConnect = () => {
+  const DB_URI = process.env.DB_URI;
+  mongoose.connect(
+    DB_URI,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+    (err, res) => {
+        if (!err) {
+            console.log("**** Conexión MongoDB OK ****");
+        } else {
+            console.log("**** Conexión MongoDB ERROR ****");
+        }
+    }
+  );
+};
+
+module.exports = dbConnect;
+```
+
+### Editar fichero .env
+
+Se edita el fichero de variables de entorno .env para indicar la variable DB_URI.
+Aquí se indica la ruta de conexión al servidor de base de datos MongoDB.
+
+```javascript
+DB_URI=mongodb://<user>:<pass>@<host>:<port>/<dbname>?authSource=admin
+```
