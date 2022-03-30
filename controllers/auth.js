@@ -14,7 +14,6 @@ const registerController = async (req, res) => {
     req = matchedData(req);
     const password = await encrypt(req.password);
     const body = { ...req, password };
-    console.log(body);
     const dataUser = await usersModel.create(body);
     dataUser.set("password", undefined, { strict: false });
 
@@ -25,7 +24,6 @@ const registerController = async (req, res) => {
 
     res.send({ data });
   } catch (error) {
-    console.log(error);
     handleHttpError(res, "ERROR_REGISTER_USER");
   }
 };
