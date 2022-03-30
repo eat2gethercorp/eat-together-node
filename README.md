@@ -1,6 +1,15 @@
 # Eat2gether
 
+1. [Creación del proyecto](#creacion_proyecto)
+2. [Estructura de carpetas (Scaffold)](#scaffold)
+3. [Base de datos](#bbdd)
+4. [Rutas (router)](#router)
+
+---
+
 ## Creación del proyecto
+
+<a name="creacion_proyecto"></a>
 
 ### Iniciar proyecto
   
@@ -83,6 +92,8 @@ También se puede utilizar Nodemon, para recargar la aplicación cada vez que se
 
 ## Estructura de carpetas (Scaffold)
 
+<a name="scaffold"></a>
+
 ### Creación de carpetas y ficheros
   
 Se crea la estructura de carpetas
@@ -126,6 +137,8 @@ Aquí se incluirán los ficheros de almacenamiento (por ejemplo, ficheros de mú
 ---
 
 ## Base de datos
+
+<a name="bbdd"></a>
 
 ### Instalar Mongoose
   
@@ -207,6 +220,8 @@ Por ejemplo, un modelo podría ser `users.js`:
 ---
 
 ## Rutas (router)
+
+<a name="router"></a>
 
 Las rutas son los puntos de acceso de nuestra aplicación node, a la que se accederá desde la aplicación front para obtener la información.
 
