@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-// const dbConnectNoSql = require("./config/mongo");
+const dbConnectNoSql = require("./config/mongo");
 // const { dbConnectMySql } = require("./config/mysql");
 // const morganBody = require("morgan-body");
 // const loggerStream = require("./utils/handleLogger");
@@ -23,11 +23,12 @@ app.use(cors());
 
 const port = process.env.PORT || 3000;
 
-// invocar las rutas
-// app.use("/api", require("./routes"));
+// Invocar las rutas de la app
+app.use("/api", require("./routes"));
 
 app.listen(port, () => {
   console.log(`Servidor preparado. http://localhost:${port}`);
 });
 
-// ENGINE_DB === "nosql" ? dbConnectNoSql() : dbConnectMySql();
+// Conexión a la base de datos NoSQL (MongoDB)
+dbConnectNoSql();

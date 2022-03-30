@@ -9,11 +9,11 @@ const dbConnect = () => {
       useUnifiedTopology: true,
     },
     (err, res) => {
-        if (!err) {
-            console.log("**** Conexión MongoDB OK ****");
-        } else {
-            console.log("**** Conexión MongoDB ERROR ****");
-        }
+      if (!err) {
+        console.log("**** Conexión MongoDB OK ****");
+      } else {
+        console.log("**** Conexión MongoDB ERROR ****");
+      }
     }
   );
 };

@@ -24,6 +24,21 @@ Se instalan las siguientes dependencias:
 
 `npm i cors dotenv multer`
 
+### Instalar Nodemon
+  
+Se instala la dependencia de Nodemon, para recargar la aplicación cada vez que se realicen cambios.
+
+`npm i nodemon -g`
+
+Se edita el archivo `package.json` para modificar la sección `scripts`, añadiendo las opciones `start` y `dev`:
+
+```json
+"scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js",
+  },
+```
+
 ### Crear fichero app.js
 
 Se crea el fichero app.js en la raiz del proyecto, aplicando las configuraciones necesarias. Por ejemplo:
@@ -59,6 +74,10 @@ PORT=3000
 Se puede probar la aplicación ejecutando el siguiente comando:
 
 `node app.js`
+
+También se puede utilizar Nodemon, para recargar la aplicación cada vez que se realice un cambio:
+
+`npm run dev`
 
 ---
 
@@ -149,4 +168,107 @@ Aquí se indica la ruta de conexión al servidor de base de datos MongoDB.
 
 ```javascript
 DB_URI=mongodb://<user>:<pass>@<host>:<port>/<dbname>?authSource=admin
+```
+
+### Aplicar conexión en app.js
+
+Se edita el fichero de app.js para agregar la conexión a base de datos, creada en config/mongo.js
+
+```javascript
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const dbConnectNoSql = require("./config/mongo");
+const app = express();
+
+app.use(cors());
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Servidor preparado. http://localhost:${port}`);
+});
+
+dbConnectNoSql();
+```
+
+### Crear modelos (MongoDB)
+
+Se crea la carpeta nosql, dentro de la carpeta models.
+
+`mkdir models/nosql`
+
+Esta carpeta contiene los modelos correspondientes a MongoDB.
+
+Por ejemplo, un modelo podría ser `users.js`:
+
+`touch models/nosql/users.js`
+
+---
+
+## Rutas (router)
+
+Las rutas son los puntos de acceso de nuestra aplicación node, a la que se accederá desde la aplicación front para obtener la información.
+
+### Crear rutas
+  
+Cada fichero de rutas se debe crear dentro de la carpeta `routes`, por ejemplo:
+
+`touch routes/auth.js`
+
+### Modificar fichero app.js
+
+Se modifica el fichero app.js para que obtenga las rutas de la carpeta `routes`:
+
+pegar aqui
+
+```javascript
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const dbConnectNoSql = require("./config/mongo");
+const app = express();
+
+app.use(cors());
+
+const port = process.env.PORT || 3000;
+
+// Invocar las rutas de la app
+app.use("/api", require("./routes"));
+
+app.listen(port, () => {
+  console.log(`Servidor preparado. http://localhost:${port}`);
+});
+
+dbConnectNoSql();
+```
+
+### Crear índice para las rutas
+
+Se crea el fichero `index.js` para gestionar todas las rutas de la app:
+
+`touch routes/index.js`
+
+Se edita el fichero para agregar el siguiente contenido:
+
+```javascript
+const express = require("express");
+const fs = require("fs");
+const router = express.Router();
+
+const PATH_ROUTES = __dirname;
+
+const removeExtension = (filename) => {
+  return filename.split(".").shift();
+};
+
+fs.readdirSync(PATH_ROUTES).filter((file) => {
+  const name = removeExtension(file);
+  if (name !== "index") {
+    console.log(`cargando ruta ${name}`);
+    router.use(`/${name}`, require(`./${file}`));
+  }
+});
+
+module.exports = router;
 ```
