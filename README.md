@@ -30,8 +30,12 @@ Se instalan las siguientes dependencias:
 - Cors, para evitar problemas de seguridad
 - Dotenv, manejar variables de entorno
 - Multer, manejar carga de ficheros
+- Express validator, controlar/filtrar datos en peticiones de controladores
+- Bcryptjs, crear hash de contraseñas
+- Jsonwebtoken, gestión de acceso JWT
+- Mongoose delete, realiza borrado lógico (soft delete)
 
-`npm i cors dotenv multer`
+`npm i cors dotenv multer express-validator bcryptjs jsonwebtoken mongoose-delete`
 
 ### Instalar Nodemon
   

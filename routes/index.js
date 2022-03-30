@@ -9,7 +9,9 @@ const removeExtension = (filename) => {
 };
 
 fs.readdirSync(PATH_ROUTES).filter((file) => {
+  // eliminar la extensión del archivo
   const name = removeExtension(file);
+  // omitir archivo index
   if (name !== "index") {
     console.log(`cargando ruta ${name}`);
     router.use(`/${name}`, require(`./${file}`));
